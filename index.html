@@ -41,16 +41,8 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Google Analytics & Facebook Pixel (Placeholders) -->
-    <script>
-        // Adicione seu código do Google Analytics aqui
-    </script>
-    <script>
-        // Adicione seu código do Facebook Pixel aqui
-    </script>
-
     <style>
-        /* Estilos personalizados para complementar o Tailwind */
+        /* Estilos personalizados */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #111111;
@@ -87,20 +79,63 @@
             from, to { opacity: 1; }
             50% { opacity: 0; }
         }
+        
+        /* Animação de marquee */
+        .marquee-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+        }
+        .marquee {
+            display: flex;
+            width: max-content;
+        }
+        .marquee:hover .marquee-track {
+            animation-play-state: paused;
+        }
+        .marquee-track {
+            display: flex;
+            will-change: transform;
+        }
+
+        /* Projetos marquee */
+        .projects-track { animation: marquee-projects 80s linear infinite; }
+        .portfolio-item {
+            flex-shrink: 0;
+            width: 380px;
+            margin: 0 1rem;
+        }
+        @keyframes marquee-projects {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Depoimentos marquee */
+        .testimonials-track { animation: marquee-testimonials 90s linear infinite; }
+        .testimonial-item {
+            flex-shrink: 0;
+            width: 420px;
+            margin: 0 1rem;
+        }
+        @keyframes marquee-testimonials {
+             0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Logos marquee */
+        .logos-track { animation: marquee-logos 40s linear infinite; }
+        @keyframes marquee-logos {
+             0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        
         /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #00FF7F;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cc6a;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #00FF7F; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00cc6a; }
     </style>
 </head>
 <body class="antialiased">
@@ -109,13 +144,10 @@
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/80 backdrop-blur-sm">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
                 <a href="#inicio" class="flex flex-col leading-none">
                     <span class="text-3xl font-bold"><span class="text-white">JOTTA</span><span class="text-[#00FF7F]">DEV</span></span>
                     <span class="text-xs text-gray-400 tracking-widest uppercase">Soluções Digitais</span>
                 </a>
-
-                <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-8">
                     <a href="#inicio" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Início</a>
                     <a href="#servicos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Serviços</a>
@@ -124,31 +156,19 @@
                     <a href="#depoimentos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Depoimentos</a>
                     <a href="#contato" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Contato</a>
                 </nav>
-
-                <!-- CTA Button -->
-                <a href="#contato" class="hidden lg:block cta-button font-semibold py-2 px-6 rounded-lg">
-                    Solicitar Orçamento
-                </a>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
-                    <i data-lucide="menu" class="h-6 w-6"></i>
-                </button>
+                <a href="#contato" class="hidden lg:block cta-button font-semibold py-2 px-6 rounded-lg">Solicitar Orçamento</a>
+                <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none"><i data-lucide="menu" class="h-6 w-6"></i></button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden lg:hidden bg-black/95">
             <nav class="flex flex-col items-center space-y-4 py-6">
-                <a href="#inicio" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Início</a>
-                <a href="#servicos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Serviços</a>
-                <a href="#projetos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Projetos</a>
-                <a href="#sobre" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Sobre</a>
-                <a href="#depoimentos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Depoimentos</a>
-                <a href="#contato" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Contato</a>
-                <a href="#contato" class="mt-4 cta-button font-semibold py-2 px-6 rounded-lg">
-                    Solicitar Orçamento
-                </a>
+                 <a href="#inicio" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Início</a>
+                <a href="#servicos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Serviços</a>
+                <a href="#projetos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Projetos</a>
+                <a href="#sobre" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Sobre</a>
+                <a href="#depoimentos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Depoimentos</a>
+                <a href="#contato" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Contato</a>
+                <a href="#contato" class="mt-4 cta-button font-semibold py-2 px-6 rounded-lg">Solicitar Orçamento</a>
             </nav>
         </div>
     </header>
@@ -166,9 +186,7 @@
                     <span id="typing-p"></span>
                 </p>
                 <div data-aos="fade-up" data-aos-delay="500">
-                    <a href="#contato" class="cta-button text-lg font-bold py-4 px-10 rounded-lg inline-block">
-                        Fale com a gente
-                    </a>
+                    <a href="#contato" class="cta-button text-lg font-bold py-4 px-10 rounded-lg inline-block">Fale com a gente</a>
                 </div>
             </div>
         </section>
@@ -181,30 +199,10 @@
                     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Soluções completas para impulsionar sua presença e performance no mundo digital.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Service Card 1 -->
-                    <div data-aos="fade-up" class="service-card p-8 rounded-xl">
-                        <i data-lucide="line-chart" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-                        <h3 class="text-xl font-bold text-white mb-3">Tráfego Pago</h3>
-                        <p class="text-gray-400">Gerenciamos campanhas no Google Ads e Meta Ads para atrair clientes qualificados e aumentar suas vendas.</p>
-                    </div>
-                    <!-- Service Card 2 -->
-                    <div data-aos="fade-up" data-aos-delay="100" class="service-card p-8 rounded-xl">
-                        <i data-lucide="layout-template" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-                        <h3 class="text-xl font-bold text-white mb-3">Criação de Sites e LPs</h3>
-                        <p class="text-gray-400">Desenvolvemos sites institucionais e landing pages de alta conversão, com design moderno e responsivo.</p>
-                    </div>
-                    <!-- Service Card 3 -->
-                    <div data-aos="fade-up" data-aos-delay="200" class="service-card p-8 rounded-xl">
-                        <i data-lucide="server" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-                        <h3 class="text-xl font-bold text-white mb-3">Sistemas Web</h3>
-                        <p class="text-gray-400">Criamos sistemas web personalizados para otimizar processos, gerenciar dados e automatizar tarefas.</p>
-                    </div>
-                    <!-- Service Card 4 -->
-                    <div data-aos="fade-up" data-aos-delay="300" class="service-card p-8 rounded-xl">
-                        <i data-lucide="compass" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-                        <h3 class="text-xl font-bold text-white mb-3">Consultoria Digital</h3>
-                        <p class="text-gray-400">Analisamos sua presença online e criamos um plano estratégico para você alcançar seus objetivos digitais.</p>
-                    </div>
+                    <div data-aos="fade-up" class="service-card p-8 rounded-xl"><i data-lucide="line-chart" class="w-12 h-12 text-[#00FF7F] mb-6"></i><h3 class="text-xl font-bold text-white mb-3">Tráfego Pago</h3><p class="text-gray-400">Gerenciamos campanhas no Google Ads e Meta Ads para atrair clientes qualificados.</p></div>
+                    <div data-aos="fade-up" data-aos-delay="100" class="service-card p-8 rounded-xl"><i data-lucide="layout-template" class="w-12 h-12 text-[#00FF7F] mb-6"></i><h3 class="text-xl font-bold text-white mb-3">Criação de Sites e LPs</h3><p class="text-gray-400">Desenvolvemos sites institucionais e landing pages de alta conversão.</p></div>
+                    <div data-aos="fade-up" data-aos-delay="200" class="service-card p-8 rounded-xl"><i data-lucide="server" class="w-12 h-12 text-[#00FF7F] mb-6"></i><h3 class="text-xl font-bold text-white mb-3">Sistemas Web</h3><p class="text-gray-400">Criamos sistemas web personalizados para otimizar processos e automatizar tarefas.</p></div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="service-card p-8 rounded-xl"><i data-lucide="compass" class="w-12 h-12 text-[#00FF7F] mb-6"></i><h3 class="text-xl font-bold text-white mb-3">Consultoria Digital</h3><p class="text-gray-400">Analisamos sua presença online e criamos um plano estratégico para seus objetivos.</p></div>
                 </div>
             </div>
         </section>
@@ -216,115 +214,34 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-white">Nossos <span class="text-[#00FF7F]">Projetos</span></h2>
                     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Conheça alguns dos trabalhos que nos enchem de orgulho.</p>
                 </div>
-                <!-- Filter Buttons -->
-                <div id="filter-buttons" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-12">
-                    <button class="filter-btn active-filter bg-[#00FF7F] text-black font-semibold py-2 px-5 rounded-lg" data-filter="all">Todos</button>
-                    <button class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-lg transition" data-filter="sites">Sites</button>
-                    <button class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-lg transition" data-filter="sistemas">Sistemas</button>
-                    <button class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-lg transition" data-filter="lps">Landing Pages</button>
-                </div>
-
-                <!-- Portfolio Grid -->
-                <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Item 1 -->
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg cursor-pointer" data-category="sites" data-aos="zoom-in">
-                        <img src="https://placehold.co/600x400/1a1a1a/FFF?text=Projeto+Empresa+X" alt="Projeto para Empresa X" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <div class="text-center text-white p-4">
-                                <h3 class="text-xl font-bold">Site Institucional</h3>
-                                <p class="text-sm">Empresa X</p>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Project Item 2 -->
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg cursor-pointer" data-category="sistemas" data-aos="zoom-in" data-aos-delay="100">
-                        <img src="https://placehold.co/600x400/333/FFF?text=Sistema+de+Gestão" alt="Sistema de Gestão" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <div class="text-center text-white p-4">
-                                <h3 class="text-xl font-bold">Sistema de Gestão</h3>
-                                <p class="text-sm">Cliente Y</p>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Project Item 3 -->
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg cursor-pointer" data-category="lps" data-aos="zoom-in" data-aos-delay="200">
-                        <img src="https://placehold.co/600x400/555/FFF?text=Landing+Page+Evento" alt="Landing Page Evento" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <div class="text-center text-white p-4">
-                                <h3 class="text-xl font-bold">LP de Lançamento</h3>
-                                <p class="text-sm">Produto Z</p>
-                            </div>
-                        </div>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee">
+                    <div class="marquee-track projects-track">
+                        <!-- Project Cards - Duplicated for seamless loop -->
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/1a1a1a/FFF?text=Projeto+A" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/222/FFF?text=Projeto+D" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        
+                        <!-- Duplicates -->
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/1a1a1a/FFF?text=Projeto+A" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/222/FFF?text=Projeto+D" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Modal for Project Details -->
-        <div id="project-modal" class="fixed inset-0 bg-black/90 z-[100] hidden items-center justify-center p-4">
-            <div id="modal-content" class="bg-[#1a1a1a] rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 relative transform scale-95 transition-transform duration-300">
-                <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                    <i data-lucide="x" class="w-8 h-8"></i>
-                </button>
-                <img id="modal-img" src="" alt="Imagem do Projeto" class="w-full h-64 object-cover rounded-lg mb-6">
-                <h3 id="modal-title" class="text-3xl font-bold text-[#00FF7F] mb-2"></h3>
-                <p id="modal-category" class="text-gray-400 mb-6"></p>
-                <div class="space-y-4 text-gray-300">
-                    <p id="modal-description"></p>
-                    <div>
-                        <h4 class="text-lg font-semibold text-white mb-2">Tecnologias Utilizadas:</h4>
-                        <p id="modal-tech"></p>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-white mb-2">Resultados Alcançados:</h4>
-                        <p id="modal-results"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- About Section -->
         <section id="sobre" class="py-20 md:py-32 bg-[#1a1a1a]">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div data-aos="fade-right">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Sobre a <span class="text-[#00FF7F]">JottaDev</span></h2>
-                        <p class="text-gray-400 mb-4">
-                            Nascemos da paixão por tecnologia e da vontade de ajudar empresas a prosperarem no ambiente digital. Acreditamos que a combinação de design, desenvolvimento e estratégia de marketing é a chave para o sucesso.
-                        </p>
-                        <p class="text-gray-400">
-                            Nossa missão é entregar soluções digitais que não apenas impressionam visualmente, mas que também são funcionais, eficientes e focadas em gerar resultados mensuráveis para os nossos clientes.
-                        </p>
-                    </div>
-                    <div data-aos="fade-left" class="space-y-8">
-                        <div class="flex items-start">
-                            <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                                <i data-lucide="target" class="w-8 h-8 text-[#00FF7F]"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white">Foco em Resultados</h3>
-                                <p class="text-gray-400">Cada projeto é planejado para atingir metas e KPIs específicos.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                                <i data-lucide="users" class="w-8 h-8 text-[#00FF7F]"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white">Suporte Humanizado</h3>
-                                <p class="text-gray-400">Estamos sempre próximos para tirar dúvidas e ajudar no que for preciso.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                             <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                                <i data-lucide="clock" class="w-8 h-8 text-[#00FF7F]"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white">Entregas no Prazo</h3>
-                                <p class="text-gray-400">Compromisso com os cronogramas acordados, sem surpresas.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div data-aos="fade-right"><h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Sobre a <span class="text-[#00FF7F]">JottaDev</span></h2><p class="text-gray-400 mb-4">Nascemos da paixão por tecnologia e da vontade de ajudar empresas a prosperarem no ambiente digital. Acreditamos que a combinação de design, desenvolvimento e estratégia de marketing é a chave para o sucesso.</p><p class="text-gray-400">Nossa missão é entregar soluções digitais que não apenas impressionam visualmente, mas que também são funcionais, eficientes e focadas em gerar resultados mensuráveis para os nossos clientes.</p></div>
+                    <div data-aos="fade-left" class="space-y-8"><div class="flex items-start"><div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="target" class="w-8 h-8 text-[#00FF7F]"></i></div><div><h3 class="text-xl font-semibold text-white">Foco em Resultados</h3><p class="text-gray-400">Cada projeto é planejado para atingir metas e KPIs específicos.</p></div></div><div class="flex items-start"><div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="users" class="w-8 h-8 text-[#00FF7F]"></i></div><div><h3 class="text-xl font-semibold text-white">Suporte Humanizado</h3><p class="text-gray-400">Estamos sempre próximos para tirar dúvidas e ajudar no que for preciso.</p></div></div><div class="flex items-start"><div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="clock" class="w-8 h-8 text-[#00FF7F]"></i></div><div><h3 class="text-xl font-semibold text-white">Entregas no Prazo</h3><p class="text-gray-400">Compromisso com os cronogramas acordados, sem surpresas.</p></div></div></div>
                 </div>
             </div>
         </section>
@@ -336,21 +253,19 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-white">O que nossos <span class="text-[#00FF7F]">Clientes</span> dizem</h2>
                     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">A satisfação de quem confia em nosso trabalho é nossa maior recompensa.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div data-aos="fade-up" class="bg-[#222] p-8 rounded-xl border border-gray-700">
-                        <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
-                        <p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p>
-                        <div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa X</p></div></div>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="100" class="bg-[#222] p-8 rounded-xl border border-gray-700">
-                        <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
-                        <p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p>
-                        <div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente Y</p></div></div>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="200" class="bg-[#222] p-8 rounded-xl border border-gray-700">
-                         <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
-                        <p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p>
-                        <div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto Z</p></div></div>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee">
+                    <div class="marquee-track testimonials-track">
+                        <!-- Testimonial Cards - Duplicated for seamless loop -->
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa A</p></div></div></div>
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p><div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente B</p></div></div></div>
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto C</p></div></div></div>
+                        
+                        <!-- Duplicates -->
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa A</p></div></div></div>
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p><div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente B</p></div></div></div>
+                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto C</p></div></div></div>
                     </div>
                 </div>
             </div>
@@ -361,48 +276,64 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                  <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-white">Fale <span class="text-[#00FF7F]">Conosco</span></h2>
-                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Veja nossa localização ou entre em contato diretamente pelo WhatsApp.</p>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Veja nossa localização ou entre em contato diretamente.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <!-- Google Maps Embed -->
-                    <div data-aos="fade-right" class="w-full h-[500px] rounded-lg overflow-hidden border-2 border-gray-700">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244634.07255461988!2d-49.42939982079024!3d-16.69598284637659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd58d80f83%3A0x42442434b4c75c78!2sGoi%C3%A2nia%2C%20GO!5e0!3m2!1spt-BR!2sbr!4v1687066870000!5m2!1spt-BR!2sbr" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                    <!-- Contact Info & WhatsApp Button -->
+                    <div data-aos="fade-right" class="w-full h-[500px] rounded-lg overflow-hidden border-2 border-gray-700"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244634.07255461988!2d-49.42939982079024!3d-16.69598284637659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd58d80f83%3A0x42442434b4c75c78!2sGoi%C3%A2nia%2C%20GO!5e0!3m2!1spt-BR!2sbr!4v1687066870000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                     <div data-aos="fade-left" class="flex flex-col items-center lg:items-start text-center lg:text-left">
                         <h3 class="text-2xl font-bold text-white mb-6">Estamos a um clique de distância</h3>
                         <div class="space-y-6">
                             <p class="flex items-center"><i data-lucide="map-pin" class="w-6 h-6 text-[#00FF7F] mr-4"></i><span>Goiânia, GO, Brasil</span></p>
-                            <p class="flex items-center"><i data-lucide="mail" class="w-6 h-6 text-[#00FF7F] mr-4"></i><a href="mailto:contato@jottadev.com.br" class="hover:text-[#00FF7F] transition">contato@jottadev.com.br</a></p>
+                            <a href="https://www.instagram.com/jottadev" target="_blank" class="flex items-center text-[#00FF7F] hover:brightness-125 transition">
+                                <i data-lucide="instagram" class="w-6 h-6 mr-4"></i>
+                                <span>@jottadev</span>
+                            </a>
                         </div>
                         <a href="https://wa.me/5562999999999?text=Olá!%20Vim%20pelo%20site%20da%20JottaDev%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="mt-10 cta-button text-lg font-bold py-4 px-10 rounded-lg inline-flex items-center">
-                            <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.847 6.062l-1.2 4.419 4.639-1.225z"/></svg>
                             Conversar no WhatsApp
                         </a>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Logos Marquee Section -->
+        <section class="py-12 bg-black">
+            <div class="marquee-container">
+                <div class="marquee">
+                    <div class="marquee-track logos-track">
+                        <!-- Logos - Duplicated for seamless loop -->
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <!-- Duplicates -->
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black py-8">
+    <footer class="bg-black py-8 border-t border-gray-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
             <p>&copy; <span id="currentYear"></span> JottaDev Soluções Digitais. Todos os direitos reservados.</p>
         </div>
     </footer>
     
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/5562999999999?text=Olá!%20Vim%20pelo%20site%20da%20JottaDev%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-40" aria-label="Fale conosco pelo WhatsApp">
-        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    <a href="https://wa.me/5562999999999?text=Olá!%20Vim%20pelo%20site%20da%20JottaDev%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-40" aria-label="Fale conosco pelo WhatsApp">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.847 6.062l-1.2 4.419 4.639-1.225z"/></svg>
     </a>
 
     <!-- Scripts -->
@@ -447,43 +378,6 @@
             });
         });
 
-        // Portfolio Filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => {
-                    btn.classList.remove('active-filter', 'bg-[#00FF7F]', 'text-black');
-                    btn.classList.add('bg-gray-700', 'text-white');
-                });
-                button.classList.add('active-filter', 'bg-[#00FF7F]', 'text-black');
-                button.classList.remove('bg-gray-700', 'text-white');
-                const filter = button.dataset.filter;
-                portfolioItems.forEach(item => {
-                    item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'block' : 'none';
-                });
-            });
-        });
-
-        // Project Modal
-        const projectItems = document.querySelectorAll('.portfolio-item');
-        const modal = document.getElementById('project-modal');
-        const modalContent = document.getElementById('modal-content');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const projectData = {
-            "Site Institucional": {img: "...", category: "Site Institucional", description: "...", tech: "...", results: "..."},
-            "Sistema de Gestão": {img: "...", category: "Sistema Web", description: "...", tech: "...", results: "..."},
-            "LP de Lançamento": {img: "...", category: "Landing Page", description: "...", tech: "...", results: "..."}
-        };
-        projectItems.forEach(item => {
-            item.addEventListener('click', () => { /* ... (modal logic is unchanged) ... */ });
-        });
-        const closeModal = () => { /* ... (modal logic is unchanged) ... */ };
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-
         // Typing effect
         const typingH1 = document.getElementById('typing-h1');
         const typingP = document.getElementById('typing-p');
@@ -491,7 +385,6 @@
         const h1Text = "Transformamos negócios com <span class='text-[#00FF7F]'>soluções digitais</span> inteligentes.";
         const pText = "Da estratégia à execução, criamos sites, sistemas e campanhas de tráfego pago que geram resultados reais para sua empresa.";
         const typeSpeed = 40;
-        const pDelay = 500;
 
         function typeWriter(element, text, speed, index = 0, callback) {
             if (index < text.length) {
@@ -508,23 +401,20 @@
                     setTimeout(() => {
                         cursor.style.display = 'none';
                         typeWriter(typingP, pText, typeSpeed, 0, null);
-                    }, pDelay);
+                    }, 500);
                 });
             }, 500);
         });
-
 
         // Plexus background effect
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray;
-
         function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
         setupCanvas();
-
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -547,7 +437,6 @@
                 ctx.fill();
             }
         }
-
         function init() {
             particlesArray = [];
             let numberOfParticles = (canvas.height * canvas.width) / 12000;
@@ -555,7 +444,6 @@
                 particlesArray.push(new Particle());
             }
         }
-
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -573,7 +461,6 @@
                 }
             }
         }
-
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < particlesArray.length; i++) {
@@ -583,12 +470,10 @@
             connect();
             requestAnimationFrame(animate);
         }
-
         window.addEventListener('resize', () => {
             setupCanvas();
             init();
         });
-
         init();
         animate();
     </script>

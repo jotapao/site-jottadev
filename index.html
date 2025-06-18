@@ -43,10 +43,14 @@
 
     <style>
         /* Estilos personalizados */
+        html, body {
+            overflow-x: hidden; /* Correção principal: Previne a rolagem horizontal na página inteira */
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #111111;
             color: #E0E0E0;
+            position: relative;
         }
         .cta-button {
             background-color: #00FF7F;
@@ -80,56 +84,47 @@
             50% { opacity: 0; }
         }
         
-        /* Animação de marquee */
+        /* Estilos do Marquee/Carrossel */
         .marquee-container {
             overflow: hidden;
             position: relative;
             width: 100%;
+            cursor: grab;
             -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
             mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
         }
-        .marquee {
-            display: flex;
-            width: max-content;
+        .marquee-container.dragging {
+            cursor: grabbing;
         }
-        .marquee:hover .marquee-track {
-            animation-play-state: paused;
-        }
+
         .marquee-track {
             display: flex;
+            width: max-content;
             will-change: transform;
+            /* A animação agora é controlada via JS */
         }
-
-        /* Projetos marquee */
-        .projects-track { animation: marquee-projects 80s linear infinite; }
-        .portfolio-item {
+        
+        .portfolio-item, .testimonial-item, .logo-item {
             flex-shrink: 0;
-            width: 380px;
             margin: 0 1rem;
+            user-select: none; /* Impede a seleção de texto ao arrastar */
         }
-        @keyframes marquee-projects {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
+        .portfolio-item img, .testimonial-item img, .logo-item img {
+            pointer-events: none; /* Impede que imagens sejam arrastadas individualmente */
         }
 
-        /* Depoimentos marquee */
-        .testimonials-track { animation: marquee-testimonials 90s linear infinite; }
-        .testimonial-item {
-            flex-shrink: 0;
-            width: 420px;
-            margin: 0 1rem;
+        .portfolio-item { width: 380px; }
+        .testimonial-item { width: 420px; }
+        .logo-item {
+             height: 40px;
+             display: flex;
+             align-items: center;
+             font-size: 1.875rem;
+             font-weight: 700;
+             color: #4B5563; /* text-gray-600 */
         }
-        @keyframes marquee-testimonials {
-             0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Logos marquee */
-        .logos-track { animation: marquee-logos 40s linear infinite; }
-        @keyframes marquee-logos {
-             0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
+        .logo-item span:first-child { color: #6B7280; /* text-gray-500 */ }
+        .logo-item span:last-child { color: rgba(0, 255, 127, 0.5); }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -175,7 +170,7 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="inicio" class="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+        <section id="inicio" class="relative min-h-screen flex items-center justify-center bg-black">
             <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
             <div class="absolute inset-0 bg-black/60"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
@@ -215,23 +210,14 @@
                     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Conheça alguns dos trabalhos que nos enchem de orgulho.</p>
                 </div>
             </div>
-            <div class="marquee-container">
-                <div class="marquee">
-                    <div class="marquee-track projects-track">
-                        <!-- Project Cards - Duplicated for seamless loop -->
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/1a1a1a/FFF?text=Projeto+A" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/222/FFF?text=Projeto+D" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        
-                        <!-- Duplicates -->
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/1a1a1a/FFF?text=Projeto+A" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/222/FFF?text=Projeto+D" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                        <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    </div>
+            <div id="projects-marquee" class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Project Cards -->
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/1a1a1a/FFF?text=Projeto+A" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/222/FFF?text=Projeto+D" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                 </div>
             </div>
         </section>
@@ -254,19 +240,12 @@
                     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">A satisfação de quem confia em nosso trabalho é nossa maior recompensa.</p>
                 </div>
             </div>
-            <div class="marquee-container">
-                <div class="marquee">
-                    <div class="marquee-track testimonials-track">
-                        <!-- Testimonial Cards - Duplicated for seamless loop -->
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa A</p></div></div></div>
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p><div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente B</p></div></div></div>
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto C</p></div></div></div>
-                        
-                        <!-- Duplicates -->
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa A</p></div></div></div>
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p><div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente B</p></div></div></div>
-                        <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto C</p></div></div></div>
-                    </div>
+            <div id="testimonials-marquee" class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Testimonial Cards -->
+                    <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O novo site ficou incrível e as campanhas de tráfego estão trazendo muitos leads!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/eee/333?text=JA" alt="Foto de João Alves" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">João Alves</h4><p class="text-sm text-gray-400">CEO, Empresa A</p></div></div></div>
+                    <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os nossos processos internos. Equipe muito competente e atenciosa."</p><div class="flex items-center"><img src="https://placehold.co/50x50/ddd/333?text=MS" alt="Foto de Maria Silva" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Maria Silva</h4><p class="text-sm text-gray-400">Diretora, Cliente B</p></div></div></div>
+                    <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"><i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i><p class="text-gray-300 mb-6">"A landing page para nosso evento foi um sucesso absoluto. Tivemos uma taxa de conversão muito acima do esperado. Recomendo!"</p><div class="flex items-center"><img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto de Carlos Pereira" class="w-12 h-12 rounded-full mr-4"><div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">Marketing, Produto C</p></div></div></div>
                 </div>
             </div>
         </section>
@@ -290,14 +269,12 @@
                             </a>
                         </div>
                         <a href="https://wa.me/5562999999999?text=Olá!%20Vim%20pelo%20site%20da%20JottaDev%20e%20gostaria%20de%20um%20orçamento." 
-   target="_blank" 
-   class="mt-10 cta-button text-lg font-bold py-4 px-10 rounded-lg inline-flex items-center">
-    
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
-         alt="WhatsApp" class="w-6 h-6 mr-3">
-    Conversar no WhatsApp
-</a>
-
+                           target="_blank" 
+                           class="mt-10 cta-button text-lg font-bold py-4 px-10 rounded-lg inline-flex items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+                                 alt="WhatsApp" class="w-6 h-6 mr-3">
+                            Conversar no WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
@@ -305,24 +282,15 @@
 
         <!-- Logos Marquee Section -->
         <section class="py-12 bg-black">
-            <div class="marquee-container">
-                <div class="marquee">
-                    <div class="marquee-track logos-track">
-                        <!-- Logos - Duplicated for seamless loop -->
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <!-- Duplicates -->
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                        <div class="text-3xl font-bold mx-8 text-gray-700"><span class="text-gray-500">JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
-                    </div>
+            <div id="logos-marquee" class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Logos -->
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+                    <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
                 </div>
             </div>
         </section>
@@ -338,7 +306,7 @@
     
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/5562999999999?text=Olá!%20Vim%20pelo%20site%20da%20JottaDev%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-40" aria-label="Fale conosco pelo WhatsApp">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
     </a>
 
     <!-- Scripts -->
@@ -369,17 +337,21 @@
         });
 
         // Active Nav Link Highlighting
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('main section[id]');
         const navLinks = document.querySelectorAll('nav a.nav-link');
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 85) current = section.getAttribute('id');
+                if (pageYOffset >= sectionTop - 85) {
+                    current = section.getAttribute('id');
+                }
             });
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) link.classList.add('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
             });
         });
 
@@ -399,18 +371,7 @@
                 callback();
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-             setTimeout(() => {
-                typeWriter(typingH1, h1Text, typeSpeed, 0, () => {
-                    setTimeout(() => {
-                        cursor.style.display = 'none';
-                        typeWriter(typingP, pText, typeSpeed, 0, null);
-                    }, 500);
-                });
-            }, 500);
-        });
-
+        
         // Plexus background effect
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
@@ -455,7 +416,7 @@
                 for (let b = a; b < particlesArray.length; b++) {
                     let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
                     if (distance < (canvas.width / 8) * (canvas.height / 8)) {
-                        opacityValue = 1 - (distance / 25000);
+                        opacityValue = 1 - (distance / 20000);
                         ctx.strokeStyle = `rgba(0, 255, 127, ${opacityValue})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
@@ -466,21 +427,176 @@
                 }
             }
         }
-        function animate() {
+        function animatePlexus() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
             }
             connect();
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animatePlexus);
         }
         window.addEventListener('resize', () => {
             setupCanvas();
             init();
         });
-        init();
-        animate();
+
+        // Draggable Marquee Logic
+        function setupDraggableMarquee(containerId, scrollSpeed = 0.5) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const track = container.querySelector('.marquee-track');
+            let items = Array.from(track.children);
+            
+            // Duplicar conteúdo para o loop
+            items.forEach(item => track.appendChild(item.cloneNode(true)));
+            
+            let position = 0;
+            let velocity = 0;
+            let isDragging = false;
+            let startX = 0;
+            let frame;
+            let lastX;
+            let isHovering = false;
+            let dragOffset = 0;
+            
+            // --- Início da correção do scroll no mobile ---
+            let touchStartCoords = null;
+            let isHorizontalSwipe = null;
+            // --- Fim da correção ---
+
+            const halfWidth = track.scrollWidth / 2;
+
+            function setPosition(pos) {
+                track.style.transform = `translateX(${pos}px)`;
+            }
+
+            function animateMarquee() {
+                if (!isDragging && !isHovering) {
+                    position -= scrollSpeed;
+                }
+                
+                if (velocity) {
+                    position += velocity;
+                    velocity *= 0.95; // Fator de amortecimento
+                }
+
+                if (position < -halfWidth) {
+                    position += halfWidth;
+                }
+                if (position > 0) {
+                    position -= halfWidth;
+                }
+
+                setPosition(position);
+                frame = requestAnimationFrame(animateMarquee);
+            }
+
+            function handleDragStart(e) {
+                isDragging = true;
+                const currentX = e.pageX || e.touches[0].pageX;
+                startX = currentX;
+                lastX = currentX;
+                dragOffset = 0;
+                velocity = 0;
+                container.classList.add('dragging');
+                
+                if(e.type === 'touchstart') {
+                    touchStartCoords = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+                    isHorizontalSwipe = null; 
+                }
+            }
+
+            function handleDragMove(e) {
+                if (!isDragging) return;
+                const currentX = e.pageX || e.touches[0].pageX;
+
+                if (e.type === 'touchmove' && isHorizontalSwipe === null) {
+                    const currentY = e.touches[0].pageY;
+                    const deltaX = Math.abs(currentX - touchStartCoords.x);
+                    const deltaY = Math.abs(currentY - touchStartCoords.y);
+                    
+                    if (deltaX > 5 || deltaY > 5) { // Espera um movimento mínimo para decidir
+                        if (deltaX > deltaY) {
+                            isHorizontalSwipe = true;
+                        } else {
+                            isHorizontalSwipe = false;
+                            isDragging = false;
+                            container.classList.remove('dragging');
+                            return;
+                        }
+                    }
+                }
+
+                if (e.type === 'touchmove' && !isHorizontalSwipe) {
+                    return; // Permite o scroll vertical da página
+                }
+                
+                // Previne o comportamento padrão (scroll) apenas para swipes horizontais
+                if (e.cancelable) e.preventDefault();
+
+                
+                const delta = currentX - lastX;
+                dragOffset = currentX - startX;
+                position += delta;
+                velocity = delta;
+                lastX = currentX;
+                setPosition(position);
+            }
+
+            function handleDragEnd() {
+                isDragging = false;
+                container.classList.remove('dragging');
+                touchStartCoords = null;
+                isHorizontalSwipe = null;
+            }
+
+            // Importante: passive: false para poder usar preventDefault()
+            container.addEventListener('mousedown', handleDragStart);
+            container.addEventListener('touchstart', handleDragStart, { passive: false });
+
+            window.addEventListener('mousemove', handleDragMove);
+            window.addEventListener('touchmove', handleDragMove, { passive: false });
+
+            window.addEventListener('mouseup', handleDragEnd);
+            window.addEventListener('touchend', handleDragEnd);
+            
+            container.addEventListener('mouseenter', () => isHovering = true);
+            container.addEventListener('mouseleave', () => isHovering = false);
+
+            track.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => {
+                    // Previne o clique se o arrasto for maior que um pequeno threshold
+                    if (Math.abs(dragOffset) > 10) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            animateMarquee();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicia o efeito de digitação
+            setTimeout(() => {
+                typeWriter(typingH1, h1Text, typeSpeed, 0, () => {
+                    setTimeout(() => {
+                        cursor.style.display = 'none';
+                        typeWriter(typingP, pText, typeSpeed, 0, null);
+                    }, 500);
+                });
+            }, 500);
+
+            // Inicia o Plexus
+            init();
+            animatePlexus();
+
+            // Configura os carrosséis
+            setupDraggableMarquee('projects-marquee', 0.8);
+            setupDraggableMarquee('testimonials-marquee', 0.6);
+            setupDraggableMarquee('logos-marquee', 1.0);
+        });
+
     </script>
 </body>
 </html>

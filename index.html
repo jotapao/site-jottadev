@@ -44,7 +44,7 @@
     <style>
         /* Estilos personalizados */
         html, body {
-            overflow-x: hidden; /* Correção principal: Previne a rolagem horizontal na página inteira */
+            overflow-x: hidden;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -65,12 +65,12 @@
             color: #00FF7F;
             font-weight: 600;
         }
-        .service-card {
+        .service-card, .diferencial-card {
             background: #1a1a1a;
             border: 1px solid #333;
             transition: all 0.4s ease;
         }
-        .service-card:hover {
+        .service-card:hover, .diferencial-card:hover {
             transform: translateY(-10px);
             background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
             border-color: #00FF7F;
@@ -103,16 +103,15 @@
             display: flex;
             width: max-content;
             will-change: transform;
-            /* A animação agora é controlada via JS */
         }
         
         .portfolio-item, .testimonial-item, .logo-item {
             flex-shrink: 0;
             margin: 0 1rem;
-            user-select: none; /* Impede a seleção de texto ao arrastar */
+            user-select: none;
         }
         .portfolio-item img, .testimonial-item img, .logo-item img {
-            pointer-events: none; /* Impede que imagens sejam arrastadas individualmente */
+            pointer-events: none;
         }
 
         .portfolio-item { width: 380px; }
@@ -131,11 +130,41 @@
              align-items: center;
              font-size: 1.875rem;
              font-weight: 700;
-             color: #4B5563; /* text-gray-600 */
+             color: #4B5563;
         }
-        .logo-item span:first-child { color: #6B7280; /* text-gray-500 */ }
+        .logo-item span:first-child { color: #6B7280; }
         .logo-item span:last-child { color: rgba(0, 255, 127, 0.5); }
         
+        /* Estilos da Seção de Contadores */
+        .counter-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .counter-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0, rgba(0, 255, 127, 0.15), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            transform: scaleY(1.5);
+        }
+        .counter-card:hover {
+            transform: translateY(-5px);
+            border-color: #00FF7F;
+        }
+        .counter-card:hover:before {
+            opacity: 1;
+        }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1a1a; }
@@ -156,6 +185,7 @@
                 <nav class="hidden lg:flex items-center space-x-8">
                     <a href="#inicio" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Início</a>
                     <a href="#servicos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Serviços</a>
+                    <a href="#diferenciais" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Diferenciais</a>
                     <a href="#projetos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Projetos</a>
                     <a href="#sobre" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Sobre</a>
                     <a href="#depoimentos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300">Depoimentos</a>
@@ -169,6 +199,7 @@
             <nav class="flex flex-col items-center space-y-4 py-6">
                  <a href="#inicio" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Início</a>
                 <a href="#servicos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Serviços</a>
+                <a href="#diferenciais" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Diferenciais</a>
                 <a href="#projetos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Projetos</a>
                 <a href="#sobre" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Sobre</a>
                 <a href="#depoimentos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Depoimentos</a>
@@ -212,6 +243,73 @@
             </div>
         </section>
 
+        <!-- Nossos Diferenciais Section -->
+        <section id="diferenciais" class="py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Nossos <span class="text-[#00FF7F]">Diferenciais</span></h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Não entregamos apenas código, entregamos soluções que transformam o seu negócio.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div data-aos="fade-up" class="diferencial-card text-center p-8 rounded-xl">
+                        <div class="flex justify-center mb-6">
+                            <div class="bg-[#00FF7F]/10 p-4 rounded-full">
+                                <i data-lucide="gem" class="w-10 h-10 text-[#00FF7F]"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Soluções Sob Medida</h3>
+                        <p class="text-gray-400">Cada cliente é único. Por isso, mergulhamos no seu negócio para criar soluções personalizadas que atendem exatamente às suas necessidades.</p>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="150" class="diferencial-card text-center p-8 rounded-xl">
+                        <div class="flex justify-center mb-6">
+                            <div class="bg-[#00FF7F]/10 p-4 rounded-full">
+                                <i data-lucide="bar-chart-2" class="w-10 h-10 text-[#00FF7F]"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Foco em Performance</h3>
+                        <p class="text-gray-400">Nossa paixão é gerar resultados. Construímos sites, sistemas e campanhas com o objetivo claro de aumentar suas conversões e seu faturamento.</p>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="diferencial-card text-center p-8 rounded-xl">
+                        <div class="flex justify-center mb-6">
+                            <div class="bg-[#00FF7F]/10 p-4 rounded-full">
+                                <i data-lucide="handshake" class="w-10 h-10 text-[#00FF7F]"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Parceria Estratégica</h3>
+                        <p class="text-gray-400">Mais do que fornecedores, somos seus parceiros. Oferecemos suporte contínuo e insights para garantir seu crescimento a longo prazo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animated Counters Section -->
+        <section id="stats" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div data-aos="fade-up" class="counter-card">
+                        <div class="flex justify-center mb-4"><i data-lucide="rocket" class="w-10 h-10 text-[#00FF7F]"></i></div>
+                        <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="50">0</span>+</h3>
+                        <p class="text-gray-400 mt-2">Projetos de Sucesso</p>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="100" class="counter-card">
+                        <div class="flex justify-center mb-4"><i data-lucide="calendar" class="w-10 h-10 text-[#00FF7F]"></i></div>
+                        <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="3">0</span>+</h3>
+                        <p class="text-gray-400 mt-2">Anos no Mercado</p>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="200" class="counter-card">
+                        <div class="flex justify-center mb-4"><i data-lucide="users" class="w-10 h-10 text-[#00FF7F]"></i></div>
+                        <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="40">0</span>+</h3>
+                        <p class="text-gray-400 mt-2">Clientes Atendidos</p>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="counter-card">
+                        <div class="flex justify-center mb-4"><i data-lucide="trending-up" class="w-10 h-10 text-[#00FF7F]"></i></div>
+                        <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="500">0</span>k+</h3>
+                        <p class="text-gray-400 mt-2">Usuários Impactados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
         <section id="projetos" class="py-20 md:py-32">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -223,10 +321,10 @@
             <div id="projects-marquee" class="marquee-container">
                 <div class="marquee-track">
                     <!-- Project Cards -->
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="images/SNITAP.jpeg" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                     <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                     <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="images/zigen.jpeg" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                     <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
                 </div>
             </div>
@@ -458,7 +556,6 @@
             const track = container.querySelector('.marquee-track');
             let items = Array.from(track.children);
             
-            // Duplicar conteúdo para o loop
             items.forEach(item => track.appendChild(item.cloneNode(true)));
             
             let position = 0;
@@ -469,12 +566,8 @@
             let lastX;
             let isHovering = false;
             let dragOffset = 0;
-            
-            // --- Início da correção do scroll no mobile ---
             let touchStartCoords = null;
             let isHorizontalSwipe = null;
-            // --- Fim da correção ---
-
             const halfWidth = track.scrollWidth / 2;
 
             function setPosition(pos) {
@@ -488,7 +581,7 @@
                 
                 if (velocity) {
                     position += velocity;
-                    velocity *= 0.95; // Fator de amortecimento
+                    velocity *= 0.95; 
                 }
 
                 if (position < -halfWidth) {
@@ -526,25 +619,18 @@
                     const deltaX = Math.abs(currentX - touchStartCoords.x);
                     const deltaY = Math.abs(currentY - touchStartCoords.y);
                     
-                    if (deltaX > 5 || deltaY > 5) { // Espera um movimento mínimo para decidir
-                        if (deltaX > deltaY) {
-                            isHorizontalSwipe = true;
-                        } else {
-                            isHorizontalSwipe = false;
-                            isDragging = false;
-                            container.classList.remove('dragging');
-                            return;
-                        }
+                    if (deltaX > 5 || deltaY > 5) {
+                        isHorizontalSwipe = deltaX > deltaY;
                     }
                 }
 
                 if (e.type === 'touchmove' && !isHorizontalSwipe) {
-                    return; // Permite o scroll vertical da página
+                     isDragging = false;
+                     container.classList.remove('dragging');
+                    return;
                 }
                 
-                // Previne o comportamento padrão (scroll) apenas para swipes horizontais
-                if (e.cancelable) e.preventDefault();
-
+                if (e.cancelable && isHorizontalSwipe) e.preventDefault();
                 
                 const delta = currentX - lastX;
                 dragOffset = currentX - startX;
@@ -561,9 +647,8 @@
                 isHorizontalSwipe = null;
             }
 
-            // Importante: passive: false para poder usar preventDefault()
             container.addEventListener('mousedown', handleDragStart);
-            container.addEventListener('touchstart', handleDragStart, { passive: false });
+            container.addEventListener('touchstart', handleDragStart, { passive: true });
 
             window.addEventListener('mousemove', handleDragMove);
             window.addEventListener('touchmove', handleDragMove, { passive: false });
@@ -576,7 +661,6 @@
 
             track.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', e => {
-                    // Previne o clique se o arrasto for maior que um pequeno threshold
                     if (Math.abs(dragOffset) > 10) {
                         e.preventDefault();
                     }
@@ -586,6 +670,29 @@
             animateMarquee();
         }
 
+        // Animated Counters Logic
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; 
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             // Inicia o efeito de digitação
             setTimeout(() => {
@@ -605,6 +712,23 @@
             setupDraggableMarquee('projects-marquee', 0.8);
             setupDraggableMarquee('testimonials-marquee', 0.6);
             setupDraggableMarquee('logos-marquee', 1.0);
+            
+            // Configura o IntersectionObserver para os contadores
+            const statsSection = document.getElementById('stats');
+            let animationHasRun = false;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animationHasRun) {
+                        animateCounters();
+                        animationHasRun = true;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 }); 
+
+            if(statsSection) {
+                observer.observe(statsSection);
+            }
         });
 
     </script>

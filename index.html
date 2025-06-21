@@ -84,6 +84,7 @@
             50% { opacity: 0; }
         }
         
+        
         /* Estilos do Marquee/Carrossel */
         .marquee-container {
             overflow: hidden;
@@ -112,9 +113,10 @@
         }
         .portfolio-item img, .testimonial-item img, .logo-item img {
             pointer-events: none;
+            
         }
 
-        .portfolio-item { width: 380px; }
+        .portfolio-item { width: 380px; background-color: #000; } /* Adicionado fundo preto ao card */
         .portfolio-item-text h3, .portfolio-item-text p {
             text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
             transition: text-shadow 0.3s ease;
@@ -310,7 +312,7 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
+ <!-- Projects Section -->
         <section id="projetos" class="py-20 md:py-32">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -321,11 +323,46 @@
             <div id="projects-marquee" class="marquee-container">
                 <div class="marquee-track">
                     <!-- Project Cards -->
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="" alt="Projeto A" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">Site Institucional</h3><p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/333/FFF?text=Projeto+B" alt="Projeto B" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">Sistema de Gestão</h3><p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/555/FFF?text=Projeto+C" alt="Projeto C" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">LP de Lançamento</h3><p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="" alt="Projeto D" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">E-commerce</h3><p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
-                    <div class="portfolio-item group relative overflow-hidden rounded-lg bg-[#222]"><img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-cover transition-transform duration-500 group-hover:opacity-20"><div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end"><h3 class="text-xl font-bold text-white">App Mobile</h3><p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p><a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a></div></div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg">
+                        <img src="images/Gemini_Generated_Image_c5kmmfc5kmmfc5km.png" alt="Projeto A" class="w-full h-full object-contain transition-transform duration-500 group-hover:opacity-20">
+                        <div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">Site Institucional</h3>
+                            <p class="text-sm text-gray-300 mb-4 mt-1">Website corporativo para a Empresa A.</p>
+                            <a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg">
+                        <img src="images/patins.png" alt="Projeto B" class="w-full h-full object-contain transition-transform duration-500 group-hover:opacity-20">
+                        <div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">Sistema de Gestão</h3>
+                            <p class="text-sm text-gray-300 mb-4 mt-1">Plataforma CRM para o Cliente B.</p>
+                            <a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg">
+                        <img src="images/inst.png" alt="Projeto C" class="w-full h-full object-contain transition-transform duration-500 group-hover:opacity-20">
+                        <div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">LP de Lançamento</h3>
+                            <p class="text-sm text-gray-300 mb-4 mt-1">Página de conversão para o Produto C.</p>
+                            <a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg">
+                        <img src="images/zigen.jpeg" alt="Projeto D" class="w-full h-full object-contain transition-transform duration-500 group-hover:opacity-20">
+                        <div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">E-commerce</h3>
+                            <p class="text-sm text-gray-300 mb-4 mt-1">Loja virtual completa para a Loja D.</p>
+                            <a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group relative overflow-hidden rounded-lg">
+                        <img src="https://placehold.co/600x450/444/FFF?text=Projeto+E" alt="Projeto E" class="w-full h-full object-contain transition-transform duration-500 group-hover:opacity-20">
+                        <div class="portfolio-item-text absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">App Mobile</h3>
+                            <p class="text-sm text-gray-300 mb-4 mt-1">Aplicativo iOS e Android para a Startup E.</p>
+                            <a href="#" class="cta-button text-sm font-semibold py-2 px-4 rounded-md self-start opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">Conhecer Projeto</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

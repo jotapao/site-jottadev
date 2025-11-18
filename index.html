@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
-    <title>Site JottaDev</title>
+    <title>JottaDev - Soluções Digitais</title>
     <meta
       name="description"
       content="Transformamos negócios com soluções digitais inteligentes, incluindo tráfego pago, criação de sites, sistemas web e consultoria de presença digital."
@@ -76,7 +76,7 @@
       }
       body {
         font-family: "Poppins", sans-serif;
-        background-color: #111111;
+        background-color: #000000; /* Base preta unificada */
         color: #e0e0e0;
         position: relative;
       }
@@ -93,30 +93,58 @@
         color: #00ff7f;
         font-weight: 600;
       }
+
+      /* Glassmorphism (Vidro) */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
       .service-card,
-      .diferencial-card {
-        background: #1a1a1a;
-        border: 1px solid #333;
+      .diferencial-card,
+      .counter-card {
+        @apply glass-card;
         transition: all 0.4s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
+
       .service-card:hover,
-      .diferencial-card:hover {
+      .diferencial-card:hover,
+      .counter-card:hover {
         transform: translateY(-10px);
-        background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
-        border-color: #00ff7f;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(0, 255, 127, 0.5);
+        box-shadow: 0 10px 40px -10px rgba(0, 255, 127, 0.15);
       }
+      
+      /* Divisória Neon (Energy Line) */
+      .neon-divider {
+        height: 1px;
+        width: 100%;
+        /* Gradiente: Transparente -> Verde Neon -> Transparente */
+        background: linear-gradient(
+          90deg, 
+          transparent 0%, 
+          rgba(0, 255, 127, 0.3) 50%, 
+          transparent 100%
+        );
+        position: relative;
+        z-index: 10;
+      }
+      /* ------------------------------------------ */
+
       .typing-cursor {
         color: #00ff7f;
         animation: blink 1s step-end infinite;
       }
       @keyframes blink {
-        from,
-        to {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
+        from, to { opacity: 1; }
+        50% { opacity: 0; }
       }
 
       /* Estilos do Marquee/Carrossel */
@@ -128,682 +156,319 @@
       }
       #testimonials-marquee,
       #logos-marquee {
-        -webkit-mask-image: linear-gradient(
-          to right,
-          transparent,
-          white 10%,
-          white 90%,
-          transparent
-        );
-        mask-image: linear-gradient(
-          to right,
-          transparent,
-          white 10%,
-          white 90%,
-          transparent
-        );
+        -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
       }
-      .marquee-container.dragging {
-        cursor: grabbing;
-      }
+      .marquee-container.dragging { cursor: grabbing; }
+      .marquee-track { display: flex; width: max-content; will-change: transform; }
 
-      .marquee-track {
-        display: flex;
-        width: max-content;
-        will-change: transform;
-      }
+      .portfolio-item, .testimonial-item, .logo-item { flex-shrink: 0; margin: 0 1rem; user-select: none; }
+      .portfolio-item img, .testimonial-item img, .logo-item img { pointer-events: none; }
 
-      .portfolio-item,
-      .testimonial-item,
-      .logo-item {
-        flex-shrink: 0;
-        margin: 0 1rem;
-        user-select: none;
-      }
-      .portfolio-item img,
-      .testimonial-item img,
-      .logo-item img {
-        pointer-events: none;
-      }
+      .testimonial-item { width: 420px; }
+      .logo-item { height: 40px; display: flex; align-items: center; font-size: 1.875rem; font-weight: 700; color: #4b5563; }
+      .logo-item span:first-child { color: #6b7280; }
+      .logo-item span:last-child { color: rgba(0, 255, 127, 0.5); }
 
-      .portfolio-item {
-        width: 380px;
-        background-color: #000;
-      } /* Adicionado fundo preto ao card */
-      .portfolio-item-text h3,
-      .portfolio-item-text p {
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-        transition: text-shadow 0.3s ease;
-      }
-      .group:hover .portfolio-item-text h3,
-      .group:hover .portfolio-item-text p {
-        text-shadow: none;
-      }
-
-      .testimonial-item {
-        width: 420px;
-      }
-      .logo-item {
-        height: 40px;
-        display: flex;
-        align-items: center;
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: #4b5563;
-      }
-      .logo-item span:first-child {
-        color: #6b7280;
-      }
-      .logo-item span:last-child {
-        color: rgba(0, 255, 127, 0.5);
-      }
-
-      /* Estilos da Seção de Contadores */
+      /* Contadores */
       .counter-card {
-        background-color: #1a1a1a;
-        border: 1px solid #333;
         border-radius: 0.75rem;
         padding: 2rem;
-        transition: all 0.3s ease-in-out;
         position: relative;
         overflow: hidden;
       }
       .counter-card:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-          circle at 50% 0,
-          rgba(0, 255, 127, 0.15),
-          transparent 70%
-        );
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        transform: scaleY(1.5);
+        content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at 50% 0, rgba(0, 255, 127, 0.15), transparent 70%);
+        opacity: 0; transition: opacity 0.5s ease; transform: scaleY(1.5);
       }
-      .counter-card:hover {
-        transform: translateY(-5px);
-        border-color: #00ff7f;
-      }
-      .counter-card:hover:before {
-        opacity: 1;
-      }
+      .counter-card:hover:before { opacity: 1; }
 
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #1a1a1a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #00ff7f;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #00cc6a;
-      }
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #1a1a1a; }
+      ::-webkit-scrollbar-thumb { background: #00ff7f; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #00cc6a; }
     </style>
   </head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1NV5QMYSWT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-1NV5QMYSWT');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NV5QMYSWT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1NV5QMYSWT');
+  </script>
 
   <body class="antialiased">
     <!-- Header -->
-    <header
-      id="header"
-      class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/80 backdrop-blur-sm"
-    >
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/80 backdrop-blur-sm border-b border-white/5">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
-          <a href="#inicio" class="flex flex-col leading-none">
-            <span class="text-3xl font-bold"
-              ><span class="text-white">JOTTA</span
-              ><span class="text-[#00FF7F]">DEV</span></span
-            >
-            <span class="text-xs text-gray-400 tracking-widest uppercase"
-              >Soluções Digitais</span
-            >
+          <a href="#inicio" class="flex flex-col leading-none flex-shrink-0">
+            <span class="text-3xl font-bold"><span class="text-white">JOTTA</span><span class="text-[#00FF7F]">DEV</span></span>
+            <span class="text-xs text-gray-400 tracking-widest uppercase">Soluções Digitais</span>
           </a>
-          <nav class="hidden lg:flex items-center space-x-8">
-            <a
-              href="#inicio"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Início</a
-            >
-            <a
-              href="#servicos"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Serviços</a
-            >
-            <a
-              href="#diferenciais"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Diferenciais</a
-            >
-            <a
-              href="#projetos"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Projetos</a
-            >
-            <a
-              href="#sobre"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Sobre</a
-            >
-            <a
-              href="#depoimentos"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Depoimentos</a
-            >
-            <a
-              href="#contato"
-              class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300"
-              >Contato</a
-            >
+          <nav class="hidden lg:flex items-center space-x-4 xl:space-x-8">
+            <a href="#inicio" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Início</a>
+            <a href="#servicos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Serviços</a>
+            <a href="#diferenciais" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Diferenciais</a>
+            <a href="#projetos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Projetos</a>
+            <a href="#sobre" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Sobre</a>
+            <a href="#depoimentos" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Depoimentos</a>
+            <a href="#contato" class="nav-link text-gray-300 hover:text-[#00FF7F] transition-colors duration-300 text-sm xl:text-base">Contato</a>
           </nav>
-          <a
-            href="#contato"
-            class="hidden lg:block cta-button font-semibold py-2 px-6 rounded-lg"
-            >Solicitar Orçamento</a
-          >
-          <button
-            id="mobile-menu-button"
-            class="lg:hidden text-white focus:outline-none"
-          >
+          <a href="#contato" class="hidden lg:block cta-button font-semibold py-2 px-4 xl:px-6 rounded-lg whitespace-nowrap flex-shrink-0 text-sm xl:text-base">Solicitar Orçamento</a>
+          <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
             <i data-lucide="menu" class="h-6 w-6"></i>
           </button>
         </div>
       </div>
-      <div id="mobile-menu" class="hidden lg:hidden bg-black/95">
+      <div id="mobile-menu" class="hidden lg:hidden bg-black/95 backdrop-blur-md">
         <nav class="flex flex-col items-center space-y-4 py-6">
-          <a
-            href="#inicio"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Início</a
-          >
-          <a
-            href="#servicos"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Serviços</a
-          >
-          <a
-            href="#diferenciais"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Diferenciais</a
-          >
-          <a
-            href="#projetos"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Projetos</a
-          >
-          <a
-            href="#sobre"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Sobre</a
-          >
-          <a
-            href="#depoimentos"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Depoimentos</a
-          >
-          <a
-            href="#contato"
-            class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]"
-            >Contato</a
-          >
-          <a
-            href="#contato"
-            class="mt-4 cta-button font-semibold py-2 px-6 rounded-lg"
-            >Solicitar Orçamento</a
-          >
+          <a href="#inicio" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Início</a>
+          <a href="#servicos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Serviços</a>
+          <a href="#diferenciais" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Diferenciais</a>
+          <a href="#projetos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Projetos</a>
+          <a href="#sobre" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Sobre</a>
+          <a href="#depoimentos" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Depoimentos</a>
+          <a href="#contato" class="nav-link-mobile text-gray-300 hover:text-[#00FF7F]">Contato</a>
+          <a href="#contato" class="mt-4 cta-button font-semibold py-2 px-6 rounded-lg">Solicitar Orçamento</a>
         </nav>
       </div>
     </header>
 
     <main>
       <!-- Hero Section -->
-      <section
-        id="inicio"
-        class="relative min-h-screen flex items-center justify-center bg-black"
-      >
-        <canvas
-          id="hero-canvas"
-          class="absolute top-0 left-0 w-full h-full z-0"
-        ></canvas>
+      <section id="inicio" class="relative min-h-screen flex items-center justify-center bg-black">
+        <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
         <div class="absolute inset-0 bg-black/60"></div>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-          <h1
-            class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4"
-          >
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4">
             <span id="typing-h1"></span><span class="typing-cursor">_</span>
           </h1>
-          <p
-            class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 min-h-[56px] md:min-h-[84px]"
-          >
+          <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 min-h-[56px] md:min-h-[84px]">
             <span id="typing-p"></span>
           </p>
           <div data-aos="fade-up" data-aos-delay="500">
-            <a
-              href="#contato"
-              class="cta-button text-lg font-bold py-4 px-10 rounded-lg inline-block"
-              >Fale com a gente</a
-            >
+            <a href="#contato" class="cta-button text-lg font-bold py-4 px-10 rounded-lg inline-block">Fale com a gente</a>
           </div>
         </div>
       </section>
 
-<section id="servicos" class="py-20 md:py-32 bg-[#1a1a1a]">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
+
+      <!-- Services Section (Full Black) -->
+      <section id="servicos" class="py-20 md:py-32 bg-black relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white">
               Nossos <span class="text-[#00FF7F]">Serviços</span>
             </h2>
             <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-              Soluções completas para impulsionar sua presença e performance no
-              mundo digital.
+              Soluções completas para impulsionar sua presença e performance no mundo digital.
             </p>
           </div>
           
-          <!-- Cards centralizados com 'items-center text-center' -->
+          <!-- Cards com Glassmorphism -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- 1. Criação de Apps -->
+            <!-- Cards -->
             <div data-aos="fade-up" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
-              <i
-                data-lucide="smartphone"
-                class="w-12 h-12 text-[#00FF7F] mb-6"
-              ></i>
+              <i data-lucide="smartphone" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
               <h3 class="text-xl font-bold text-white mb-3">Aplicativos</h3>
-              <p class="text-gray-400">
-                Desenvolvemos aplicativos móveis intuitivos e performáticos para iOS e Android.
-              </p>
+              <p class="text-gray-400">Desenvolvemos aplicativos móveis intuitivos e performáticos para iOS e Android.</p>
             </div>
-
-            <!-- 2. Criação de Sistemas -->
-            <div
-              data-aos="fade-up"
-              data-aos-delay="100"
-              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
-            >
+            <div data-aos="fade-up" data-aos-delay="100" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
               <i data-lucide="server" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Sistemas
-              </h3>
-              <p class="text-gray-400">
-                Criamos sistemas sob medida para otimizar a gestão do seu negócio.
-              </p>
+              <h3 class="text-xl font-bold text-white mb-3">Sistemas</h3>
+              <p class="text-gray-400">Criamos sistemas sob medida para otimizar a gestão do seu negócio.</p>
             </div>
-
-            <!-- 3. Criação de Lojas Virtuais -->
-            <div
-              data-aos="fade-up"
-              data-aos-delay="150"
-              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
-            >
-              <i
-                data-lucide="shopping-cart"
-                class="w-12 h-12 text-[#00FF7F] mb-6"
-              ></i>
-              <h3 class="text-xl font-bold text-white mb-3">E-Commerce</h3>
-              <p class="text-gray-400">
-                Lojas ON-LINE completas, seguras e focadas em vendas para o seu varejo online.
-              </p>
+            <div data-aos="fade-up" data-aos-delay="150" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
+              <i data-lucide="shopping-cart" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
+              <h3 class="text-xl font-bold text-white mb-3">E-commerce</h3>
+              <p class="text-gray-400">Lojas ON-LINE completas, seguras e focadas em vendas para o seu varejo online.</p>
             </div>
-
-            <!-- 4. Criação de Sites -->
-            <div
-              data-aos="fade-up"
-              data-aos-delay="200"
-              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
-            >
-              <i
-                data-lucide="layout-template"
-                class="w-12 h-12 text-[#00FF7F] mb-6"
-              ></i>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Sites
-              </h3>
-              <p class="text-gray-400">
-                Desenvolvemos sites institucionais, portfólios e landing pages de alta conversão.
-              </p>
+            <div data-aos="fade-up" data-aos-delay="200" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
+              <i data-lucide="layout-template" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
+              <h3 class="text-xl font-bold text-white mb-3">Sites</h3>
+              <p class="text-gray-400">Desenvolvemos sites institucionais, portfólios e landing pages de alta conversão.</p>
             </div>
-
-            <!-- 5. Tráfego Pago -->
-            <div 
-              data-aos="fade-up" 
-              data-aos-delay="250"
-              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
-            >
-              <i
-                data-lucide="line-chart"
-                class="w-12 h-12 text-[#00FF7F] mb-6"
-              ></i>
+            <div data-aos="fade-up" data-aos-delay="250" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
+              <i data-lucide="line-chart" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
               <h3 class="text-xl font-bold text-white mb-3">Tráfego Pago</h3>
-              <p class="text-gray-400">
-                Gerenciamos campanhas no Google Ads e Meta Ads para atrair
-                clientes qualificados.
-              </p>
+              <p class="text-gray-400">Gerenciamos campanhas no Google Ads e Meta Ads para atrair clientes qualificados.</p>
             </div>
-            
-            <!-- 6. Chatbots com IA -->
-            <div 
-             data-aos="fade-up"
-             data-aos-delay="300"
-              class="service-card p-8 rounded-xl flex flex-col items-center text-center">
+            <div data-aos="fade-up" data-aos-delay="300" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
               <i data-lucide="message-circle" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
               <h3 class="text-xl font-bold text-white mb-3">Chatbots com IA</h3>
               <p class="text-gray-400">Implementamos chatbots inteligentes para automatizar o atendimento do seu negócio.</p>
             </div>
-
           </div>
         </div>
       </section>
-                
 
-      <!-- Nossos Diferenciais Section -->
-      <section id="diferenciais" class="py-20 md:py-32">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
+
+      <!-- Nossos Diferenciais Section (Full Black) -->
+      <section id="diferenciais" class="py-20 md:py-32 bg-black relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white">
               Nossos <span class="text-[#00FF7F]">Diferenciais</span>
             </h2>
             <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-              Não entregamos apenas código, entregamos soluções que transformam
-              o seu negócio.
+              Não entregamos apenas código, entregamos soluções que transformam o seu negócio.
             </p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div
-              data-aos="fade-up"
-              class="diferencial-card text-center p-8 rounded-xl"
-            >
+            <div data-aos="fade-up" class="diferencial-card text-center p-8 rounded-xl">
               <div class="flex justify-center mb-6">
-                <div class="bg-[#00FF7F]/10 p-4 rounded-full">
-                  <i data-lucide="gem" class="w-10 h-10 text-[#00FF7F]"></i>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-4 rounded-full"><i data-lucide="gem" class="w-10 h-10 text-[#00FF7F]"></i></div>
               </div>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Soluções Sob Medida
-              </h3>
-              <p class="text-gray-400">
-                Cada cliente é único. Por isso, mergulhamos no seu negócio para
-                criar soluções personalizadas que atendem exatamente às suas
-                necessidades.
-              </p>
+              <h3 class="text-xl font-bold text-white mb-3">Soluções Sob Medida</h3>
+              <p class="text-gray-400">Cada cliente é único. Por isso, mergulhamos no seu negócio para criar soluções personalizadas.</p>
             </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="150"
-              class="diferencial-card text-center p-8 rounded-xl"
-            >
+            <div data-aos="fade-up" data-aos-delay="150" class="diferencial-card text-center p-8 rounded-xl">
               <div class="flex justify-center mb-6">
-                <div class="bg-[#00FF7F]/10 p-4 rounded-full">
-                  <i
-                    data-lucide="bar-chart-2"
-                    class="w-10 h-10 text-[#00FF7F]"
-                  ></i>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-4 rounded-full"><i data-lucide="bar-chart-2" class="w-10 h-10 text-[#00FF7F]"></i></div>
               </div>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Foco em Performance
-              </h3>
-              <p class="text-gray-400">
-                Nosso foco é gerar resultados. Construímos sites, sistemas, aplicativos e
-                campanhas com o objetivo claro de aumentar suas conversões e seu
-                faturamento.
-              </p>
+              <h3 class="text-xl font-bold text-white mb-3">Foco em Performance</h3>
+              <p class="text-gray-400">Nosso foco é gerar resultados. Construímos sites, sistemas e campanhas com foco em conversão.</p>
             </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="300"
-              class="diferencial-card text-center p-8 rounded-xl"
-            >
+            <div data-aos="fade-up" data-aos-delay="300" class="diferencial-card text-center p-8 rounded-xl">
               <div class="flex justify-center mb-6">
-                <div class="bg-[#00FF7F]/10 p-4 rounded-full">
-                  <i
-                    data-lucide="handshake"
-                    class="w-10 h-10 text-[#00FF7F]"
-                  ></i>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-4 rounded-full"><i data-lucide="handshake" class="w-10 h-10 text-[#00FF7F]"></i></div>
               </div>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Parceria Estratégica
-              </h3>
-              <p class="text-gray-400">
-                Mais do que fornecedores, somos seus parceiros. Oferecemos
-                suporte contínuo e insights para garantir seu crescimento a
-                longo prazo.
-              </p>
+              <h3 class="text-xl font-bold text-white mb-3">Parceria Estratégica</h3>
+              <p class="text-gray-400">Mais do que fornecedores, somos seus parceiros. Oferecemos suporte contínuo e insights.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Animated Counters Section -->
-      <section id="stats" class="py-20 md:py-32 bg-black">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center"
-          >
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
+
+      <!-- Animated Counters Section (Full Black) -->
+      <section id="stats" class="py-20 md:py-32 bg-black relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div data-aos="fade-up" class="counter-card">
-              <div class="flex justify-center mb-4">
-                <i data-lucide="rocket" class="w-10 h-10 text-[#00FF7F]"></i>
-              </div>
-              <h3 class="text-5xl font-bold text-white">
-                <span class="counter" data-target="50">0</span>+
-              </h3>
+              <div class="flex justify-center mb-4"><i data-lucide="rocket" class="w-10 h-10 text-[#00FF7F]"></i></div>
+              <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="50">0</span>+</h3>
               <p class="text-gray-400 mt-2">Projetos de Sucesso</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="100" class="counter-card">
-              <div class="flex justify-center mb-4">
-                <i data-lucide="calendar" class="w-10 h-10 text-[#00FF7F]"></i>
-              </div>
-              <h3 class="text-5xl font-bold text-white">
-                <span class="counter" data-target="3">0</span>+
-              </h3>
+              <div class="flex justify-center mb-4"><i data-lucide="calendar" class="w-10 h-10 text-[#00FF7F]"></i></div>
+              <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="3">0</span>+</h3>
               <p class="text-gray-400 mt-2">Anos no Mercado</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200" class="counter-card">
-              <div class="flex justify-center mb-4">
-                <i data-lucide="users" class="w-10 h-10 text-[#00FF7F]"></i>
-              </div>
-              <h3 class="text-5xl font-bold text-white">
-                <span class="counter" data-target="40">0</span>+
-              </h3>
+              <div class="flex justify-center mb-4"><i data-lucide="users" class="w-10 h-10 text-[#00FF7F]"></i></div>
+              <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="40">0</span>+</h3>
               <p class="text-gray-400 mt-2">Clientes Atendidos</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="300" class="counter-card">
-              <div class="flex justify-center mb-4">
-                <i
-                  data-lucide="trending-up"
-                  class="w-10 h-10 text-[#00FF7F]"
-                ></i>
-              </div>
-              <h3 class="text-5xl font-bold text-white">
-                <span class="counter" data-target="500">0</span>k+
-              </h3>
+              <div class="flex justify-center mb-4"><i data-lucide="trending-up" class="w-10 h-10 text-[#00FF7F]"></i></div>
+              <h3 class="text-5xl font-bold text-white"><span class="counter" data-target="500">0</span>k+</h3>
               <p class="text-gray-400 mt-2">Usuários Impactados</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- About Section -->
-      <section id="sobre" class="py-20 md:py-32 bg-[#1a1a1a]">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
+
+      <!-- About Section (Full Black) -->
+      <section id="sobre" class="py-20 md:py-32 bg-black relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
               <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
                 Sobre a <span class="text-[#00FF7F]">JottaDev</span>
               </h2>
               <p class="text-gray-400 mb-4">
-                Nascemos da paixão por tecnologia e da vontade de ajudar
-                empresas a prosperarem no ambiente digital. Acreditamos que a
-                combinação de design, desenvolvimento e estratégia de marketing
-                é a chave para o sucesso.
+                Nascemos da paixão por tecnologia e da vontade de ajudar empresas a prosperarem no ambiente digital.
               </p>
               <p class="text-gray-400">
-                Nossa missão é entregar soluções digitais que não apenas
-                impressionam visualmente, mas que também são funcionais,
-                eficientes e focadas em gerar resultados mensuráveis para os
-                nossos clientes.
+                Nossa missão é entregar soluções digitais que não apenas impressionam visualmente, mas que também são funcionais.
               </p>
             </div>
             <div data-aos="fade-left" class="space-y-8">
               <div class="flex items-start">
-                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                  <i data-lucide="target" class="w-8 h-8 text-[#00FF7F]"></i>
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Foco em Resultados
-                  </h3>
-                  <p class="text-gray-400">
-                    Cada projeto é planejado para atingir metas e KPIs
-                    específicos.
-                  </p>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="target" class="w-8 h-8 text-[#00FF7F]"></i></div>
+                <div><h3 class="text-xl font-semibold text-white">Foco em Resultados</h3><p class="text-gray-400">Cada projeto é planejado para atingir metas e KPIs específicos.</p></div>
               </div>
               <div class="flex items-start">
-                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                  <i data-lucide="users" class="w-8 h-8 text-[#00FF7F]"></i>
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Suporte Humanizado
-                  </h3>
-                  <p class="text-gray-400">
-                    Estamos sempre próximos para tirar dúvidas e ajudar no que
-                    for preciso.
-                  </p>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="users" class="w-8 h-8 text-[#00FF7F]"></i></div>
+                <div><h3 class="text-xl font-semibold text-white">Suporte Humanizado</h3><p class="text-gray-400">Estamos sempre próximos para tirar dúvidas e ajudar.</p></div>
               </div>
               <div class="flex items-start">
-                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4">
-                  <i data-lucide="clock" class="w-8 h-8 text-[#00FF7F]"></i>
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Entregas no Prazo
-                  </h3>
-                  <p class="text-gray-400">
-                    Compromisso com os cronogramas acordados, sem surpresas.
-                  </p>
-                </div>
+                <div class="bg-[#00FF7F]/10 p-3 rounded-full mr-4"><i data-lucide="clock" class="w-8 h-8 text-[#00FF7F]"></i></div>
+                <div><h3 class="text-xl font-semibold text-white">Entregas no Prazo</h3><p class="text-gray-400">Compromisso com os cronogramas acordados.</p></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Testimonials Section -->
-      <section id="depoimentos" class="py-20 md:py-32">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
+
+      <!-- Testimonials Section (Full Black) -->
+      <section id="depoimentos" class="py-20 md:py-32 bg-black relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white">
               O que nossos <span class="text-[#00FF7F]">Clientes</span> dizem
             </h2>
             <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-              A satisfação de quem confia em nosso trabalho é nossa maior
-              recompensa.
+              A satisfação de quem confia em nosso trabalho é nossa maior recompensa.
             </p>
           </div>
         </div>
-        <div id="testimonials-marquee" class="marquee-container">
+        <div id="testimonials-marquee" class="marquee-container relative z-10">
           <div class="marquee-track">
             <!-- Testimonial Cards -->
-            <div
-              class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"
-            >
-              <i
-                data-lucide="quote"
-                class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"
-              ></i>
-              <p class="text-gray-300 mb-6">
-                "A JottaDev revolucionou nossa presença online. O nosso site
-                ficou incrível e as campanhas de tráfego estão trazendo muitos
-                leads, estamos vendendo como nunca antes!"
-              </p>
+            <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700">
+              <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
+              <p class="text-gray-300 mb-6">"A JottaDev revolucionou nossa presença online. O nosso site ficou incrível, e junto a 
+                campanha de Tráfego Pago maximizou nossas vendas de uma forma surreal!"</p>
               <div class="flex items-center">
-                <img
-                  src="https://placehold.co/50x50/eee/333?text=RG"
-                  alt="Foto de João Alves"
-                  class="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 class="font-bold text-white">Rafaela Guimarães</h4>
-                  <p class="text-sm text-gray-400">CEO - Studio Bella</p>
-                </div>
+                <img src="https://placehold.co/50x50/eee/333?text=RG" alt="Foto" class="w-12 h-12 rounded-full mr-4" />
+                <div><h4 class="font-bold text-white">Rafaela Guimarães</h4><p class="text-sm text-gray-400">CEO - Studio Bella</p></div>
               </div>
             </div>
-            <div
-              class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"
-            >
-              <i
-                data-lucide="quote"
-                class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"
-              ></i>
-              <p class="text-gray-300 mb-6">
-                "O sistema de gestão que eles desenvolveram otimizou todos os
-                processos internos da minha empresa. Equipe muito competente e
-                atenciosa, viramos grandes parceiros."
-              </p>
+            <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700">
+              <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
+              <p class="text-gray-300 mb-6">"O sistema de gestão que eles desenvolveram otimizou todos os processos internos da minha loja,
+                além de terem entregado muito mais do que solicitamos, equipe fantástica!"</p>
               <div class="flex items-center">
-                <img
-                  src="https://placehold.co/50x50/ddd/333?text=SR"
-                  alt="Foto de Maria Silva"
-                  class="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 class="font-bold text-white">Safira Rocha</h4>
-                  <p class="text-sm text-gray-400">CEO - Saro Fitwear</p>
-                </div>
+                <img src="https://placehold.co/50x50/ddd/333?text=SR" alt="Foto" class="w-12 h-12 rounded-full mr-4" />
+                <div><h4 class="font-bold text-white">Safira Rocha</h4><p class="text-sm text-gray-400">CEO - Saro Fitwear</p></div>
               </div>
             </div>
-            <div
-              class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700"
-            >
-              <i
-                data-lucide="quote"
-                class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"
-              ></i>
-              <p class="text-gray-300 mb-6">
-                "Procuramos a JOTTADEV para criar nossa loja virtual e realmente
-                é como prometem, entregam ainda mais do que é solicitado,
-                realmente se importam com o sucesso do cliente, e hoje, mais que
-                fornecedores, são nossos parceiros de negócio."
-              </p>
+            <div class="testimonial-item bg-[#222] p-8 rounded-xl border border-gray-700">
+              <i data-lucide="quote" class="w-10 h-10 text-[#00FF7F] opacity-50 mb-4"></i>
+              <p class="text-gray-300 mb-6">"Procuramos a JOTTADEV para criar nossa loja virtual e realmente é como prometem,
+                na verdade entregam muito mais do que prometem, além do atendimento impecável e do acompanhamento continuo no nosso projeto"</p>
               <div class="flex items-center">
-                <img
-                  src="https://placehold.co/50x50/ccc/333?text=CP"
-                  alt="Foto de Carlos Pereira"
-                  class="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 class="font-bold text-white">Carlos Pereira</h4>
-                  <p class="text-sm text-gray-400">CEO - SNITAP PRATAS</p>
-                </div>
+                <img src="https://placehold.co/50x50/ccc/333?text=CP" alt="Foto" class="w-12 h-12 rounded-full mr-4" />
+                <div><h4 class="font-bold text-white">Carlos Pereira</h4><p class="text-sm text-gray-400">CEO - SNITAP PRATAS</p></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      
+      <!-- DIVISOR NEON -->
+      <div class="neon-divider"></div>
 
-      <!-- Contact Section -->
-      <section id="contato" class="py-20 md:py-32">
+      <!-- Contact Section (Full Black) -->
+      <section id="contato" class="py-20 md:py-32 bg-black relative">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white">
@@ -814,54 +479,17 @@
             </p>
           </div>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div
-              data-aos="fade-right"
-              class="w-full h-[500px] rounded-lg overflow-hidden border-2 border-gray-700"
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244634.07255461988!2d-49.42939982079024!3d-16.69598284637659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd58d80f83%3A0x42442434b4c75c78!2sGoi%C3%A2nia%2C%20GO!5e0!3m2!1spt-BR!2sbr!4v1687066870000!5m2!1spt-BR!2sbr"
-                width="100%"
-                height="100%"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div data-aos="fade-right" class="w-full h-[500px] rounded-lg overflow-hidden border-2 border-gray-700">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244634.07255461988!2d-49.42939982079024!3d-16.69598284637659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd58d80f83%3A0x42442434b4c75c78!2sGoi%C3%A2nia%2C%20GO!5e0!3m2!1spt-BR!2sbr!4v1687066870000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div
-              data-aos="fade-left"
-              class="flex flex-col items-center lg:items-start text-center lg:text-left"
-            >
-              <h3 class="text-2xl font-bold text-white mb-6">
-                Estamos a um clique de distância
-              </h3>
+            <div data-aos="fade-left" class="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <h3 class="text-2xl font-bold text-white mb-6">Estamos a um clique de distância</h3>
               <div class="space-y-6">
-                <p class="flex items-center">
-                  <i
-                    data-lucide="map-pin"
-                    class="w-6 h-6 text-[#00FF7F] mr-4"
-                  ></i
-                  ><span>Goiânia, GO, Brasil</span>
-                </p>
-                <a
-                  href="https://www.instagram.com/jottadev"
-                  target="_blank"
-                  class="flex items-center text-[#00FF7F] hover:brightness-125 transition"
-                >
-                  <i data-lucide="instagram" class="w-6 h-6 mr-4"></i>
-                  <span>@jottadevsolucoesdigitais</span>
-                </a>
+                <p class="flex items-center"><i data-lucide="map-pin" class="w-6 h-6 text-[#00FF7F] mr-4"></i><span>Goiânia, GO, Brasil</span></p>
+                <a href="https://www.instagram.com/jottadev" target="_blank" class="flex items-center text-[#00FF7F] hover:brightness-125 transition"><i data-lucide="instagram" class="w-6 h-6 mr-4"></i><span>@jottadevsolucoesdigitais</span></a>
               </div>
-              <a
-                href="https://wa.me/5562981100434?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento"
-                target="_blank"
-                class="mt-10 cta-button text-lg font-bold py-4 px-10 rounded-lg inline-flex items-center"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                  alt="WhatsApp"
-                  class="w-6 h-6 mr-3"
-                />
+              <a href="https://wa.me/5562981100434?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento" target="_blank" class="mt-10 cta-button text-lg font-bold py-4 px-10 rounded-lg inline-flex items-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-6 h-6 mr-3" />
                 Conversar no WhatsApp
               </a>
             </div>
@@ -869,29 +497,16 @@
         </div>
       </section>
 
-      <!-- Logos Marquee Section -->
-      <section class="py-12 bg-black">
+      <!-- Logos Marquee Section (Full Black) -->
+      <section class="py-12 bg-black border-t border-white/5">
         <div id="logos-marquee" class="marquee-container">
           <div class="marquee-track">
-            <!-- Logos -->
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
-            <div class="logo-item mx-8">
-              <span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span>
-            </div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
+            <div class="logo-item mx-8"><span>JOTTA</span><span class="text-[#00FF7F]/50">DEV</span></div>
           </div>
         </div>
       </section>
@@ -899,15 +514,19 @@
 
     <!-- Footer -->
     <footer class="bg-black py-8 border-t border-gray-800">
-      <div
-        class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400"
-      >
-        <p>
-          &copy; <span id="currentYear"></span> JottaDev Soluções Digitais.
-          Todos os direitos reservados.
-        </p>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+        <p>&copy; <span id="currentYear"></span> JottaDev Soluções Digitais. Todos os direitos reservados.</p>
       </div>
     </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button
+        id="back-to-top"
+        class="fixed bottom-24 right-6 bg-[#00FF7F] text-black p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-40 opacity-0 invisible translate-y-10"
+        aria-label="Voltar ao topo"
+    >
+        <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
 
     <!-- Floating WhatsApp Button -->
     <a
@@ -949,10 +568,28 @@
       document.getElementById("currentYear").textContent =
         new Date().getFullYear();
 
-      // Header Style on Scroll
+      // Header Style & Back to Top Logic
       const header = document.getElementById("header");
+      const backToTopButton = document.getElementById("back-to-top");
+
       window.addEventListener("scroll", () => {
+        // Header styling
         header.classList.toggle("shadow-lg", window.scrollY > 50);
+        
+        // Back to Top visibility
+        if (window.scrollY > 500) {
+            backToTopButton.classList.remove("opacity-0", "invisible", "translate-y-10");
+        } else {
+            backToTopButton.classList.add("opacity-0", "invisible", "translate-y-10");
+        }
+      });
+
+      // Back to Top Click
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
       });
 
       // Active Nav Link Highlighting

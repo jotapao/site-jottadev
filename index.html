@@ -403,8 +403,7 @@
         </div>
       </section>
 
-      <!-- Services Section -->
-      <section id="servicos" class="py-20 md:py-32 bg-[#1a1a1a]">
+<section id="servicos" class="py-20 md:py-32 bg-[#1a1a1a]">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white">
@@ -416,8 +415,76 @@
             </p>
           </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div data-aos="fade-up" class="service-card p-8 rounded-xl">
+          <!-- Cards centralizados com 'items-center text-center' -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1. Criação de Apps -->
+            <div data-aos="fade-up" class="service-card p-8 rounded-xl flex flex-col items-center text-center">
+              <i
+                data-lucide="smartphone"
+                class="w-12 h-12 text-[#00FF7F] mb-6"
+              ></i>
+              <h3 class="text-xl font-bold text-white mb-3">Aplicativos</h3>
+              <p class="text-gray-400">
+                Desenvolvemos aplicativos móveis intuitivos e performáticos para iOS e Android.
+              </p>
+            </div>
+
+            <!-- 2. Criação de Sistemas -->
+            <div
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
+            >
+              <i data-lucide="server" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
+              <h3 class="text-xl font-bold text-white mb-3">
+                Sistemas
+              </h3>
+              <p class="text-gray-400">
+                Criamos sistemas sob medida para otimizar a gestão do seu negócio.
+              </p>
+            </div>
+
+            <!-- 3. Criação de Lojas Virtuais -->
+            <div
+              data-aos="fade-up"
+              data-aos-delay="150"
+              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
+            >
+              <i
+                data-lucide="shopping-cart"
+                class="w-12 h-12 text-[#00FF7F] mb-6"
+              ></i>
+              <h3 class="text-xl font-bold text-white mb-3">E-Commerce</h3>
+              <p class="text-gray-400">
+                Lojas ON-LINE completas, seguras e focadas em vendas para o seu varejo online.
+              </p>
+            </div>
+
+            <!-- 4. Criação de Sites -->
+            <div
+              data-aos="fade-up"
+              data-aos-delay="200"
+              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
+            >
+              <i
+                data-lucide="layout-template"
+                class="w-12 h-12 text-[#00FF7F] mb-6"
+              ></i>
+              <h3 class="text-xl font-bold text-white mb-3">
+                Sites
+              </h3>
+              <p class="text-gray-400">
+                Desenvolvemos sites institucionais, portfólios e landing pages de alta conversão.
+              </p>
+            </div>
+
+            <!-- 5. Tráfego Pago -->
+            <div 
+              data-aos="fade-up" 
+              data-aos-delay="250"
+              class="service-card p-8 rounded-xl flex flex-col items-center text-center"
+            >
               <i
                 data-lucide="line-chart"
                 class="w-12 h-12 text-[#00FF7F] mb-6"
@@ -428,42 +495,17 @@
                 clientes qualificados.
               </p>
             </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="100"
-              class="service-card p-8 rounded-xl"
-            >
-              <i
-                data-lucide="layout-template"
-                class="w-12 h-12 text-[#00FF7F] mb-6"
-              ></i>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Criação de Sites
-              </h3>
-              <p class="text-gray-400">
-                Desenvolvemos sites institucionais, portfólios e lojas virtuais.
-              </p>
-            </div>
-            <div
-              data-aos="fade-up"
-              data-aos-delay="200"
-              class="service-card p-8 rounded-xl"
-            >
-              <i data-lucide="server" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
-              <h3 class="text-xl font-bold text-white mb-3">
-                Criação de Sistemas
-              </h3>
-              <p class="text-gray-400">
-                Criamos sistemas sob medida para o seu negócio
-              </p>
-            </div>
-            <div data-aos="fade-up"
-             data-aos-delay="200"
-              class="service-card p-8 rounded-xl">
+            
+            <!-- 6. Chatbots com IA -->
+            <div 
+             data-aos="fade-up"
+             data-aos-delay="300"
+              class="service-card p-8 rounded-xl flex flex-col items-center text-center">
               <i data-lucide="message-circle" class="w-12 h-12 text-[#00FF7F] mb-6"></i>
               <h3 class="text-xl font-bold text-white mb-3">Chatbots com IA</h3>
-              <p class="text-gray-400">Implementamos chatbots inteligentes para automatizar o atendimento do seu negócio.</p></div>
+              <p class="text-gray-400">Implementamos chatbots inteligentes para automatizar o atendimento do seu negócio.</p>
             </div>
+
           </div>
         </div>
       </section>
@@ -517,7 +559,7 @@
                 Foco em Performance
               </h3>
               <p class="text-gray-400">
-                Nosso foco é gerar resultados. Construímos sites, sistemas e
+                Nosso foco é gerar resultados. Construímos sites, sistemas, aplicativos e
                 campanhas com o objetivo claro de aumentar suas conversões e seu
                 faturamento.
               </p>
